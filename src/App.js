@@ -1,3 +1,4 @@
+import { useState, useTransition } from "react";
 import "./App.css";
 import Box from "./component/Box";
 
@@ -12,11 +13,11 @@ import Box from "./component/Box";
 const choice = {
   rock: {
     name: "Rock",
-    img: "https://townsquare.media/site/723/files/2015/04/Pet-Rock-11-300x200.jpg",
+    img: "https://nationaltoday.com/wp-content/uploads/2021/08/National-Pet-Rock-Day-640x514.jpg",
   },
   scissors: {
     name: "Scissors",
-    img: "https://www.joinusonline.net/pub/media/catalog/product/cache/c9a86b5d6ed7765664725105f8d84377/s/m/small_scissor_green.jpg",
+    img: "https://cdn.images.fecom-media.com/FE00015871/images/HE1815179_1426638-GLS-STA-P01.jpg?width=578&height=578&scale=UpscaleCanvas&anchor=MiddleCenter",
   },
   paper: {
     name: "Paper",
@@ -25,15 +26,46 @@ const choice = {
 };
 
 function App() {
+  const [userSelect, setUserSelect] = useState(null);
+  const [computerSelect, setComputerSelect] = useState(null);
+  const [result, setResult] = useState("");
+  const [computerResult, setComputerResult] = useState("");
+
   //onClick부분에서 play 함수가 바로 실행되기 때문에 콜백함수 형태로 넘겨줘야됨
   const play = (userChoice) => {
-    console.log("선택!", userChoice);
+    setUserSelect(choice[userChoice]);
+    let computerChoice = randomChoice();
+    setComputerSelect(computerChoice);
+    setResult(judgement(choice[userChoice], computerChoice));
+    setComputerResult(judgement(computerChoice, choice[userChoice]));
   };
+
+  const judgement = (user, computer) => {
+    if (user.name == computer.name) {
+      return "tie";
+    } else if (user.name == "Rock")
+      return computer.name == "Scissors" ? "win" : "lose";
+    else if (user.name == "Paper")
+      return computer.name == "Rock" ? "win" : "lose";
+    else if (user.name == "Scissors")
+      return computer.name == "Paper" ? "win" : "lose";
+  };
+
+  const randomChoice = () => {
+    let itemArray = Object.keys(choice); // 객체의 키값만 뽑아서 array로 만들어주는 함수.
+
+    let randomItem = Math.floor(Math.random() * itemArray.length);
+
+    let final = itemArray[randomItem];
+
+    return choice[final]; // 종료되면서 play 함수안에 computerChoice 실행
+  };
+
   return (
     <>
       <div className="outer">
-        <Box title="YOU" />
-        <Box title="COMPUTER" />
+        <Box title="YOU" item={userSelect} result={result} />
+        <Box title="COMPUTER" item={computerSelect} result={computerResult} />
       </div>
       <div className="mainBtn">
         <button onClick={() => play("scissors")}>가위</button>

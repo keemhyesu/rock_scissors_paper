@@ -1,11 +1,18 @@
 .box {
   width: 400px;
+  height: 700px;
   border: 3px solid rgb(205, 52, 205);
-  margin-right: 10px;
+  margin: 10px;
+  background-color: white;
+  justify-content: space-around;
+  text-align: center;
+  font-size: 20pt;
+  position: relative;
 }
 
 .item-img {
-  width: 400px;
+  width: 250px;
+  position: static;
 }
 
 .outer {
@@ -13,8 +20,27 @@
   justify-content: center;
 }
 
+p {
+  margin-top: 100px;
+  font-weight: 800;
+  position: static;
+}
+
 .mainBtn {
   display: flex;
   justify-content: center;
   margin-top: 40px;
+}
+
+.win {
+  border: 10px solid green;
+  color: green;
+}
+.lose {
+  border: 10px solid red;
+  color: red;
+}
+.tie {
+  border: 10px solid black;
+  color: black;
 }
