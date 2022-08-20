@@ -1,35 +1,47 @@
-import { useState } from "react";
 import "./App.css";
 import Box from "./component/Box";
 
-function App() {
-  let counter = 0; //변수는 동기적으로 작동
-  const [counter2, setCounter2] = useState(0);
-  //useState도 함수임. 그리고 react hook 중에 하나가 useState. 괄호안은 매개변수로 초기값을 넣어줌
-  const increase = () => {
-    counter = counter + 1;
-    setCounter2(counter2 + 1); //state는 비동기적으로 작동
-    console.log("counter는", counter, "counter2 state는", counter2);
-  };
+// 1. 박스 2개(타이틀,사진,결과값)
+// 2. 가위 바위 보 버튼이 있다
+// 3. 버튼을 클릭하면 클릭한 값이 박스에 보임
+// 4. 컴퓨터는 랜덤하게 아이템 선택이 된다.
+// 5. 3~4 결과를 가지고 누가 이겼는지 승패를 따진다.
+// 6. 승패에 따라 테두리 색이 바뀐다(이기면 초록/ 지면 빨강/ 비기면 검정)
 
+// 사진과 이름을 가지고 있는 객체
+const choice = {
+  rock: {
+    name: "Rock",
+    img: "https://townsquare.media/site/723/files/2015/04/Pet-Rock-11-300x200.jpg",
+  },
+  scissors: {
+    name: "Scissors",
+    img: "https://www.joinusonline.net/pub/media/catalog/product/cache/c9a86b5d6ed7765664725105f8d84377/s/m/small_scissor_green.jpg",
+  },
+  paper: {
+    name: "Paper",
+    img: "https://m.media-amazon.com/images/I/61OorFhm6SL._AC_SX466_.jpg",
+  },
+};
+
+function App() {
+  //onClick부분에서 play 함수가 바로 실행되기 때문에 콜백함수 형태로 넘겨줘야됨
+  const play = (userChoice) => {
+    console.log("선택!", userChoice);
+  };
   return (
     <>
-      <div>{counter}</div>
-      <div>state: {counter2}</div>
-      <button onClick={increase}>클릭!</button>
+      <div className="outer">
+        <Box title="YOU" />
+        <Box title="COMPUTER" />
+      </div>
+      <div className="mainBtn">
+        <button onClick={() => play("scissors")}>가위</button>
+        <button onClick={() => play("rock")}>바위</button>
+        <button onClick={() => play("paper")}>보</button>
+      </div>
     </>
   );
 }
-/* 1. 유저가 버튼을 클릭한다
-  2. counter + 1 해서 1이 됨
-  3. setState 함수 호출
-  4. console.log 실행
-  5. 변수값은 1로 보이고 state 값은 아직 안변했기 때문에 그 전의 값이 보인다.
-  6. 함수 끝
-  7. app 다시 re render
-  8. let counter = 0을 거치면서 counter 값은 다시 0으로 초기화
-  9. 업데이트 된 state값이 보인다.
-  **변수는 re render 될때마다 초기화가 된다**
-  */
 
 export default App;

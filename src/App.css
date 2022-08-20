@@ -1,5 +1,20 @@
 .box {
-  width: 100px;
-  height: 100px;
-  border: 3px solid pink;
+  width: 400px;
+  border: 3px solid rgb(205, 52, 205);
+  margin-right: 10px;
+}
+
+.item-img {
+  width: 400px;
+}
+
+.outer {
+  display: flex;
+  justify-content: center;
+}
+
+.mainBtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
