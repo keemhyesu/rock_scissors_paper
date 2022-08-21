@@ -1,78 +1,55 @@
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import "./App.css";
 import Box from "./component/Box";
-
-// 1. 박스 2개(타이틀,사진,결과값)
-// 2. 가위 바위 보 버튼이 있다
-// 3. 버튼을 클릭하면 클릭한 값이 박스에 보임
-// 4. 컴퓨터는 랜덤하게 아이템 선택이 된다.
-// 5. 3~4 결과를 가지고 누가 이겼는지 승패를 따진다.
-// 6. 승패에 따라 테두리 색이 바뀐다(이기면 초록/ 지면 빨강/ 비기면 검정)
-
-// 사진과 이름을 가지고 있는 객체
-const choice = {
-  rock: {
-    name: "Rock",
-    img: "https://nationaltoday.com/wp-content/uploads/2021/08/National-Pet-Rock-Day-640x514.jpg",
-  },
-  scissors: {
-    name: "Scissors",
-    img: "https://cdn.images.fecom-media.com/FE00015871/images/HE1815179_1426638-GLS-STA-P01.jpg?width=578&height=578&scale=UpscaleCanvas&anchor=MiddleCenter",
-  },
-  paper: {
-    name: "Paper",
-    img: "https://m.media-amazon.com/images/I/61OorFhm6SL._AC_SX466_.jpg",
-  },
-};
 
 function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
-  const [result, setResult] = useState("");
-  const [computerResult, setComputerResult] = useState("");
 
-  //onClick부분에서 play 함수가 바로 실행되기 때문에 콜백함수 형태로 넘겨줘야됨
+  const choice = {
+    rock: {
+      name: "Rock",
+      img: "https://lh3.googleusercontent.com/qkVrT5AEoLRntKS_preFmH44T9GeOIv-lYT5RxwRI859U4Al3JKS3rwFEAAjHEw2gttpxRopcqcxn2BG0XcQy2lxao5gCFKWr0x1tKU=w600",
+    },
+    scissors: {
+      name: "Scissors",
+      img: "https://www.mouser.kr/images/marketingid/2020/img/177933245.png?v=031022.1142",
+    },
+    paper: {
+      name: "Paper",
+      img: "https://completesupplies.com.mt/wp-content/uploads/2020/10/46064.jpg",
+    },
+  };
+
   const play = (userChoice) => {
-    setUserSelect(choice[userChoice]);
+    console.log("클릭", userChoice);
+    setUserSelect(choice[userChoice], computerSelect);
     let computerChoice = randomChoice();
-    setComputerSelect(computerChoice);
-    setResult(judgement(choice[userChoice], computerChoice));
-    setComputerResult(judgement(computerChoice, choice[userChoice]));
+    setComputerSelect(computerChoice); // 컴퓨터도 랜덤한 이미지 출력 완
   };
 
-  const judgement = (user, computer) => {
-    if (user.name == computer.name) {
-      return "tie";
-    } else if (user.name == "Rock")
-      return computer.name == "Scissors" ? "win" : "lose";
-    else if (user.name == "Paper")
-      return computer.name == "Rock" ? "win" : "lose";
-    else if (user.name == "Scissors")
-      return computer.name == "Paper" ? "win" : "lose";
-  };
-
-  const randomChoice = () => {
-    let itemArray = Object.keys(choice); // 객체의 키값만 뽑아서 array로 만들어주는 함수.
-
-    let randomItem = Math.floor(Math.random() * itemArray.length);
-
-    let final = itemArray[randomItem];
-
-    return choice[final]; // 종료되면서 play 함수안에 computerChoice 실행
+  const randomChoice = (user, computer) => {
+    let itemArray = Object.keys(choice); // choice 객체의 key값 가져옴
+    console.log("배열은?", itemArray);
+    let randomItem = Math.floor(Math.random() * itemArray.length); // 가위바위보의 인덱스 번호(0,1,2)에 math.random(0.xxx) 곱해서 2.xxx 이런식으로 나오게끔 => 앞의숫자만 따오면 됨
+    console.log("랜덤밸류는", randomItem);
+    let final = itemArray[randomItem]; // 인덱스번호를 가위바위보(아이템 이름)로 가져옴
+    console.log("파이널?", final);
+    return choice[final]; // randomchoice()의 값이 computerChoice로 할당됨
   };
 
   return (
-    <>
+    <div>
       <div className="outer">
-        <Box title="YOU" item={userSelect} result={result} />
-        <Box title="COMPUTER" item={computerSelect} result={computerResult} />
+        <Box title="You" item={userSelect} />
+        <Box title="Computer" item={computerSelect} />
       </div>
-      <div className="mainBtn">
+      <div className="buttons">
         <button onClick={() => play("scissors")}>가위</button>
         <button onClick={() => play("rock")}>바위</button>
         <button onClick={() => play("paper")}>보</button>
       </div>
-    </>
+    </div>
   );
 }
 
