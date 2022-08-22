@@ -1,42 +1,39 @@
-.box {
-  width: 500px;
-  border: 2px solid black;
-  text-align: center;
-  margin: 10px;
-}
-
-.item-img {
-  width: 400px;
-}
-
 .outer {
   display: flex;
   justify-content: center;
 }
 
-.buttons {
+.box {
+  width: 550px;
+  border: 10px solid pink;
+  margin: 10px;
+  text-align: center;
+}
+
+.mainButtons {
   display: flex;
   justify-content: center;
+  margin: 10px;
 }
 
 button {
-  font-size: 1.5rem;
-  padding: 10px;
-  margin: 5px;
-  border: none;
   background: none;
+  border: none;
+  font-size: 2rem;
+  padding: 10px;
   cursor: pointer;
 }
 
-.WIN {
-  border: 5px solid blue;
+.Win {
+  border: 7px solid blue;
   color: blue;
 }
 
-.LOSE {
-  border: 5px solid red;
+.Lose {
+  border: 7px solid red;
+  color: red;
 }
 
-.TIE {
-  border: 5px solid black;
+.Tie {
+  border: 7px solid black;
 }
