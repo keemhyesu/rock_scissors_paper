@@ -2,7 +2,7 @@
 
 ![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/98025141/185958245-8a0197f0-2412-4522-9874-df3e8842af92.gif)
 
-
+▶️데모앱 주소: https://thriving-gaufre-c66707.netlify.app
 ***
 # 기능
 - 유저는 페이지 하단의 가위바위보 버튼을 클릭한다.
